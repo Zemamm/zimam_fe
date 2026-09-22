@@ -1,0 +1,40 @@
+---
+description: MUI design system conventions for Zimam FE
+alwaysApply: true
+---
+
+# Design System + MUI
+
+## Must use
+
+- MUI + `sx` prop only — **no** `.css`, `.scss`, or CSS modules
+- Theme from `src/design-system/theme` via `ThemeProvider`
+- Tokens from `src/design-system/tokens` (colors, typography, spacing, layout)
+- Shared primitives from `@/design-system` or `@/components/ui` before creating new ones
+- Extract repeated styles to `ComponentName.styles.ts`
+
+## Do not
+
+- Override shared UI with inline styles or deep selectors
+- Hardcode one-off colors/fonts when a token exists
+- Import raw MUI for patterns already wrapped (`UiButton`, `UiContainer`, `UiSection`, `UiHeading`, `UiText`)
+- Use Inter, Roboto, Arial, or system font stacks for brand UI
+
+## Example
+
+```tsx
+// ✅
+import { UiButton, UiHeading } from '@/design-system'
+import { sectionStyles } from './Section.styles'
+
+<UiHeading sx={sectionStyles.title}>Zimam</UiHeading>
+<UiButton size="large">Explore</UiButton>
+
+// ❌
+import Button from '@mui/material/Button'
+<button style={{ color: '#209E94' }}>Explore</button>
+```
+
+## Visual direction
+
+Ink + teal palette, Syne (display) + DM Sans (body). Cool light backgrounds — avoid purple themes and cream/terracotta serif looks.

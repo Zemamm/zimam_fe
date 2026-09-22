@@ -1,0 +1,39 @@
+---
+description: Project structure for the Zimam landing page
+alwaysApply: true
+---
+
+# Project Structure
+
+This is a marketing landing page — keep structure simple. Do **not** use DDD layers.
+
+```
+src/
+  app/                 # App shell + providers
+  design-system/       # Tokens, theme, shared Ui* primitives
+  components/ui/       # Re-exports design-system UI
+  pages/
+    landing/
+      LandingPage.tsx  # Composes sections only
+      sections/        # Hero, Offerings, Contact, Footer
+      components/      # Page-local UI (e.g. OfferingCard)
+      data/            # Static copy and content
+      index.ts
+```
+
+## Rules
+
+- Pages compose sections; sections own their layout and `*.styles.ts`
+- Static marketing content lives in `data/` — no repositories or use cases
+- Shared UI comes from `@/design-system` or `@/components/ui`
+- Path alias: `@/` → `src/`
+- Import pages via their `index.ts`
+
+```tsx
+// ✅
+import { LandingPage } from '@/pages/landing'
+import { offerings } from '../data/offerings'
+
+// ❌
+src/features/*/domain|application|infrastructure
+```
