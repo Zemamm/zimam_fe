@@ -62,15 +62,4 @@ export const heroTitleStyles = {
   shimmer: {
     display: 'none',
   },
-  underline: {
-    display: 'block',
-    width: { xs: 72, md: 110 },
-    height: 3,
-    mx: 'auto',
-    mt: { xs: 2, md: 2.5 },
-    borderRadius: 999,
-    transformOrigin: 'center',
-    background: `linear-gradient(90deg, transparent, ${colors.lime[400]}, transparent)`,
-    boxShadow: `0 0 18px ${colors.lime[400]}88`,
-  },
 } as const satisfies Record<string, SxProps<Theme>>
