@@ -5,36 +5,15 @@ import {
   useReducedMotion,
   useScroll,
   useTransform,
-  type Variants,
 } from "framer-motion";
 import { useRef } from "react";
-import { UiContainer, UiHeading, UiText } from "@/design-system";
+import { UiContainer, UiText } from "@/design-system";
 import { FloatingDecor } from "../components/FloatingDecor";
+import { HeroTitle } from "../components/HeroTitle";
 import { landingContent } from "../data/content";
 import { heroSectionStyles } from "./HeroSection.styles";
 
 const heroViewport = { once: false, amount: 0.35 } as const;
-
-const wordParentVariants: Variants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.25,
-      delayChildren: 0.12,
-    },
-  },
-};
-
-const wordVariants: Variants = {
-  hidden: { opacity: 0, y: 30, filter: "blur(12px)", scale: 0.95 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    filter: "blur(0px)",
-    scale: 1,
-    transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] },
-  },
-};
 
 export function HeroSection() {
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -120,53 +99,7 @@ export function HeroSection() {
               {landingContent.eyebrow}
             </Box>
 
-            <Box
-              component={motion.div}
-              variants={reduceMotion ? undefined : wordParentVariants}
-              initial={reduceMotion ? false : "hidden"}
-              whileInView={reduceMotion ? undefined : "visible"}
-              viewport={heroViewport}
-            >
-              <UiHeading
-                variant="h1"
-                component="h1"
-                sx={heroSectionStyles.brandGlow}
-              >
-                {landingContent.headlineLine1.split(" ").map((word, i, arr) => (
-                  <Box
-                    key={`l1-${i}`}
-                    component="span"
-                    sx={{ display: "inline-block", whiteSpace: "pre" }}
-                  >
-                    <Box
-                      component={motion.span}
-                      variants={reduceMotion ? undefined : wordVariants}
-                      sx={{ display: "inline-block" }}
-                    >
-                      {word}
-                    </Box>
-                    {i < arr.length - 1 ? " " : ""}
-                  </Box>
-                ))}
-                <Box component="br" />
-                {landingContent.headlineLine2.split(" ").map((word, i, arr) => (
-                  <Box
-                    key={`l2-${i}`}
-                    component="span"
-                    sx={{ display: "inline-block", whiteSpace: "pre" }}
-                  >
-                    <Box
-                      component={motion.span}
-                      variants={reduceMotion ? undefined : wordVariants}
-                      sx={{ display: "inline-block" }}
-                    >
-                      {word}
-                    </Box>
-                    {i < arr.length - 1 ? " " : ""}
-                  </Box>
-                ))}
-              </UiHeading>
-            </Box>
+            <HeroTitle />
 
             <Box
               component={motion.div}
