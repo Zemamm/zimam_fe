@@ -2,46 +2,67 @@ import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded'
 import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded'
 import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined'
 import Box from '@mui/material/Box'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { motion, useReducedMotion, useScroll, useMotionValueEvent } from 'framer-motion'
 import { landingContent } from '../data/content'
+import { useActiveSection } from '../hooks/useActiveSection'
 import { navbarStyles } from './Navbar.styles'
 
-type NavbarProps = {
-  activeHref?: string
-}
+const sectionHrefs = landingContent.navLinks.map((link) => link.href)
 
-export function Navbar({ activeHref = '#top' }: NavbarProps) {
+const HIDE_AFTER_PX = 64
+const SCROLL_DELTA_PX = 10
+
+const barTransition = {
+  type: 'spring',
+  stiffness: 260,
+  damping: 34,
+  mass: 0.9,
+} as const
+
+export function Navbar() {
   const reduceMotion = useReducedMotion()
   const { scrollY } = useScroll()
   const [hidden, setHidden] = useState(false)
-  
+  const lastScrollY = useRef(0)
+  const activeHref = useActiveSection(sectionHrefs)
+
   const outlineLink = landingContent.navOutlineLink
   const textLinks = landingContent.navLinks.filter((link) => link.href !== outlineLink.href)
+  const isOutlineActive = activeHref === outlineLink.href
 
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    const previous = scrollY.getPrevious()
-    if (previous !== undefined && latest > 100 && latest > previous) {
+  useMotionValueEvent(scrollY, 'change', (latest) => {
+    if (reduceMotion) {
+      setHidden(false)
+      lastScrollY.current = latest
+      return
+    }
+
+    const delta = latest - lastScrollY.current
+
+    if (latest <= HIDE_AFTER_PX) {
+      setHidden(false)
+    } else if (delta > SCROLL_DELTA_PX) {
       setHidden(true)
-    } else {
+    } else if (delta < -SCROLL_DELTA_PX) {
       setHidden(false)
     }
+
+    lastScrollY.current = latest
   })
 
   return (
     <Box
-      component={motion.header}
-      sx={navbarStyles.root}
-      variants={{
-        initial: { y: -36, opacity: 0 },
-        visible: { y: 0, opacity: 1 },
-        hidden: { y: -100, opacity: 0 }
-      }}
-      initial={reduceMotion ? "visible" : "initial"}
-      animate={hidden ? "hidden" : "visible"}
-      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+      component="header"
+      sx={[navbarStyles.root, hidden ? { pointerEvents: 'none' } : null]}
     >
-      <Box sx={navbarStyles.bar}>
+      <Box
+        component={motion.div}
+        sx={navbarStyles.bar}
+        initial={reduceMotion ? false : { y: -88 }}
+        animate={{ y: hidden ? -88 : 0 }}
+        transition={reduceMotion ? { duration: 0 } : barTransition}
+      >
         <Box component="a" href="#top" sx={navbarStyles.brand}>
           <Box sx={navbarStyles.brandMark}>{landingContent.brandMark}</Box>
           <Box component="span" sx={navbarStyles.brandName}>
@@ -58,6 +79,7 @@ export function Navbar({ activeHref = '#top' }: NavbarProps) {
                 key={link.href}
                 component="a"
                 href={link.href}
+                aria-current={isActive ? 'true' : undefined}
                 sx={[navbarStyles.link, isActive ? navbarStyles.linkActive : null]}
               >
                 {isActive ? <Box sx={navbarStyles.linkActiveDot} aria-hidden /> : null}
@@ -66,7 +88,12 @@ export function Navbar({ activeHref = '#top' }: NavbarProps) {
             )
           })}
 
-          <Box component="a" href={outlineLink.href} sx={navbarStyles.navOutline}>
+          <Box
+            component="a"
+            href={outlineLink.href}
+            aria-current={isOutlineActive ? 'true' : undefined}
+            sx={[navbarStyles.navOutline, isOutlineActive ? navbarStyles.navOutlineActive : null]}
+          >
             {outlineLink.label}
           </Box>
         </Box>

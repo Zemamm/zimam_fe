@@ -14,6 +14,8 @@ export const landingContent = {
   navLinks: [
     { label: 'Home', href: '#top' },
     { label: 'Offerings', href: '#offerings' },
+    { label: 'Projects', href: '#projects' },
+    { label: 'Why Zimam', href: '#why-zimam' },
     { label: 'FAQ', href: '#faq' },
     { label: 'Contact', href: '#contact' },
   ],
@@ -28,6 +30,12 @@ export const landingContent = {
   offeringsOutlineTitle: 'Built for scale',
   offeringsSupport:
     'End-to-end product delivery across SaaS, desktop, mobile, and website enhancement.',
+  whyZimamTitle: 'Why Zimam',
+  whyZimamSupport:
+    'A focused partner for shipping software that is clear, durable, and ready to grow with your business.',
+  caseStudiesTitle: 'Case studies / Projects',
+  caseStudiesSupport:
+    'Selected work across SaaS, desktop, mobile, and website upgrades — from concept to shipped product.',
   faqTitle: 'Frequently asked questions',
   faqSupport: 'Quick answers about how we build, deliver, and support your product.',
   contactTitle: 'Let’s build together',
