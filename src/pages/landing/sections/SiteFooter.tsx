@@ -6,7 +6,7 @@ import Stack from '@mui/material/Stack'
 import SvgIcon, { type SvgIconProps } from '@mui/material/SvgIcon'
 import type { ReactElement } from 'react'
 import { UiContainer, UiText } from '@/design-system'
-import { landingContent } from '../data/content'
+import { useLandingCopy } from '../i18n/LocaleProvider'
 import { siteFooterStyles } from './SiteFooter.styles'
 
 function TikTokIcon(props: SvgIconProps) {
@@ -17,7 +17,7 @@ function TikTokIcon(props: SvgIconProps) {
   )
 }
 
-const socialIcons: Record<(typeof landingContent.footerSocial)[number]['id'], ReactElement> = {
+const socialIcons: Record<'linkedin' | 'instagram' | 'tiktok' | 'facebook', ReactElement> = {
   linkedin: <LinkedInIcon sx={siteFooterStyles.socialIcon} />,
   instagram: <InstagramIcon sx={siteFooterStyles.socialIcon} />,
   tiktok: <TikTokIcon sx={siteFooterStyles.socialIcon} />,
@@ -26,30 +26,29 @@ const socialIcons: Record<(typeof landingContent.footerSocial)[number]['id'], Re
 
 export function SiteFooter() {
   const year = new Date().getFullYear()
+  const { content } = useLandingCopy()
 
   return (
     <Box component="footer" sx={siteFooterStyles.root}>
       <Box sx={siteFooterStyles.main}>
         <Box component="span" aria-hidden sx={siteFooterStyles.watermark}>
-          {landingContent.footerWatermark}
+          {content.footerWatermark}
         </Box>
 
         <UiContainer sx={siteFooterStyles.content}>
           <Stack sx={siteFooterStyles.layout}>
             <Stack sx={siteFooterStyles.brandRow}>
               <Box component="a" href="#top" sx={siteFooterStyles.brand}>
-                <Box sx={siteFooterStyles.brandMark}>{landingContent.brandMark}</Box>
+                <Box sx={siteFooterStyles.brandMark}>{content.brandMark}</Box>
                 <Box component="span" sx={siteFooterStyles.brandName}>
-                  {landingContent.brandSuffix}
+                  {content.brandSuffix}
                 </Box>
               </Box>
 
               <Stack sx={siteFooterStyles.socialBlock}>
-                <UiText sx={siteFooterStyles.followLabel}>
-                  {landingContent.footerFollowLabel}
-                </UiText>
+                <UiText sx={siteFooterStyles.followLabel}>{content.footerFollowLabel}</UiText>
                 <Box sx={siteFooterStyles.social} aria-label="Social media">
-                  {landingContent.footerSocial.map((item) => (
+                  {content.footerSocial.map((item) => (
                     <Box
                       key={item.id}
                       component="a"
@@ -66,14 +65,14 @@ export function SiteFooter() {
               </Stack>
             </Stack>
 
-            <UiText sx={siteFooterStyles.description}>{landingContent.footerDescription}</UiText>
+            <UiText sx={siteFooterStyles.description}>{content.footerDescription}</UiText>
           </Stack>
         </UiContainer>
       </Box>
 
       <Stack sx={siteFooterStyles.bottom}>
         <UiText variant="body2" sx={siteFooterStyles.copy}>
-          © {year} {landingContent.brand}. {landingContent.footerCopyright}
+          © {year} {content.brand}. {content.footerCopyright}
         </UiText>
       </Stack>
     </Box>

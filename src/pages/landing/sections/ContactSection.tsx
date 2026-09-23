@@ -1,12 +1,13 @@
 import Stack from '@mui/material/Stack'
-import { motion, useReducedMotion } from 'framer-motion'
 import { UiContainer, UiHeading, UiSection, UiText } from '@/design-system'
 import { ContactForm } from '../components/ContactForm'
-import { landingContent } from '../data/content'
+import { useLandingCopy } from '../i18n/LocaleProvider'
 import { contactSectionStyles } from './ContactSection.styles'
+import { motion, useReducedMotion } from 'framer-motion'
 
 export function ContactSection() {
   const reduceMotion = useReducedMotion()
+  const { content } = useLandingCopy()
 
   return (
     <UiSection id="contact" sx={contactSectionStyles.root}>
@@ -22,11 +23,9 @@ export function ContactSection() {
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           >
             <UiHeading variant="h2" component="h2" sx={contactSectionStyles.title}>
-              {landingContent.contactTitle}
+              {content.contactTitle}
             </UiHeading>
-            <UiText sx={contactSectionStyles.support}>
-              {landingContent.contactSupport}
-            </UiText>
+            <UiText sx={contactSectionStyles.support}>{content.contactSupport}</UiText>
           </Stack>
 
           <Stack

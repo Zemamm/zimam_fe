@@ -3,8 +3,7 @@ import Stack from '@mui/material/Stack'
 import { motion, useReducedMotion, type Variants } from 'framer-motion'
 import { UiContainer, UiHeading, UiText } from '@/design-system'
 import { OfferingCard } from '../components/OfferingCard'
-import { landingContent } from '../data/content'
-import { offerings } from '../data/offerings'
+import { useLandingCopy } from '../i18n/LocaleProvider'
 import { offeringsSectionStyles } from './OfferingsSection.styles'
 
 const CARD_CORNER_OFFSETS = [
@@ -74,7 +73,8 @@ const outlineLetterVariants: Variants = {
 
 export function OfferingsSection() {
   const reduceMotion = useReducedMotion()
-  const outlineLetters = Array.from(landingContent.offeringsOutlineTitle)
+  const { content, offerings } = useLandingCopy()
+  const outlineLetters = Array.from(content.offeringsOutlineTitle)
 
   return (
     <Box id="offerings" component="section" sx={offeringsSectionStyles.root}>
@@ -88,10 +88,10 @@ export function OfferingsSection() {
           initial={reduceMotion ? false : 'hidden'}
           whileInView={reduceMotion ? undefined : 'visible'}
           viewport={{ once: false, amount: 0.45 }}
-          aria-label={landingContent.offeringsOutlineTitle}
+          aria-label={content.offeringsOutlineTitle}
         >
           {reduceMotion
-            ? landingContent.offeringsOutlineTitle
+            ? content.offeringsOutlineTitle
             : outlineLetters.map((letter, index) =>
                 letter === ' ' ? (
                   <Box
@@ -122,16 +122,10 @@ export function OfferingsSection() {
           transition={{ duration: 0.75, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
         >
           <Stack spacing={1.5} sx={offeringsSectionStyles.intro}>
-            <UiHeading
-              variant="h2"
-              component="h2"
-              sx={offeringsSectionStyles.introTitle}
-            >
-              {landingContent.offeringsTitle}
+            <UiHeading variant="h2" component="h2" sx={offeringsSectionStyles.introTitle}>
+              {content.offeringsTitle}
             </UiHeading>
-            <UiText sx={offeringsSectionStyles.introSupport}>
-              {landingContent.offeringsSupport}
-            </UiText>
+            <UiText sx={offeringsSectionStyles.introSupport}>{content.offeringsSupport}</UiText>
           </Stack>
         </Box>
 

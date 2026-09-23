@@ -2,12 +2,12 @@ import Box from '@mui/material/Box'
 import Stack from '@mui/material/Stack'
 import { motion, useReducedMotion } from 'framer-motion'
 import { UiContainer, UiHeading, UiSection, UiText } from '@/design-system'
-import { caseStudies } from '../data/caseStudies'
-import { landingContent } from '../data/content'
+import { useLandingCopy } from '../i18n/LocaleProvider'
 import { caseStudiesSectionStyles } from './CaseStudiesSection.styles'
 
 export function CaseStudiesSection() {
   const reduceMotion = useReducedMotion()
+  const { content, caseStudies } = useLandingCopy()
 
   return (
     <UiSection id="projects" sx={caseStudiesSectionStyles.root}>
@@ -22,11 +22,9 @@ export function CaseStudiesSection() {
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
           <UiHeading variant="h2" component="h2" sx={caseStudiesSectionStyles.title}>
-            {landingContent.caseStudiesTitle}
+            {content.caseStudiesTitle}
           </UiHeading>
-          <UiText sx={caseStudiesSectionStyles.support}>
-            {landingContent.caseStudiesSupport}
-          </UiText>
+          <UiText sx={caseStudiesSectionStyles.support}>{content.caseStudiesSupport}</UiText>
         </Stack>
 
         <Box sx={caseStudiesSectionStyles.list}>

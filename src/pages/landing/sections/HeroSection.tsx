@@ -10,12 +10,13 @@ import { useRef } from "react";
 import { UiContainer, UiText } from "@/design-system";
 import { FloatingDecor } from "../components/FloatingDecor";
 import { HeroTitle } from "../components/HeroTitle";
-import { landingContent } from "../data/content";
+import { useLandingCopy } from "../i18n/LocaleProvider";
 import { heroSectionStyles } from "./HeroSection.styles";
 
 const heroViewport = { once: false, amount: 0.35 } as const;
 
 export function HeroSection() {
+  const { content } = useLandingCopy();
   const sectionRef = useRef<HTMLElement | null>(null);
   const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
@@ -96,7 +97,7 @@ export function HeroSection() {
               }}
             >
               <Box sx={heroSectionStyles.eyebrowDot} />
-              {landingContent.eyebrow}
+              {content.eyebrow}
             </Box>
 
             <HeroTitle />
@@ -113,7 +114,7 @@ export function HeroSection() {
               }}
             >
               <UiText sx={heroSectionStyles.support}>
-                {landingContent.support}
+                {content.support}
               </UiText>
             </Box>
 
@@ -129,7 +130,7 @@ export function HeroSection() {
                 ease: [0.16, 1, 0.3, 1],
               }}
             >
-              {landingContent.heroFeatures.map((feature) => (
+              {content.heroFeatures.map((feature) => (
                 <Box key={feature} sx={heroSectionStyles.feature}>
                   <Box sx={heroSectionStyles.featureIcon} />
                   {feature}
@@ -154,7 +155,7 @@ export function HeroSection() {
                 href="#contact"
                 sx={heroSectionStyles.primaryCta}
               >
-                {landingContent.primaryCta}
+                {content.primaryCta}
                 <Box
                   component="span"
                   sx={heroSectionStyles.primaryCtaIcon}
@@ -168,7 +169,7 @@ export function HeroSection() {
                 href="#offerings"
                 sx={heroSectionStyles.secondaryCta}
               >
-                {landingContent.secondaryCta}
+                {content.secondaryCta}
               </Box>
             </Box>
           </Stack>
@@ -197,7 +198,7 @@ export function HeroSection() {
           }
           transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
         >
-          {landingContent.scrollHint}
+          {content.scrollHint}
           <Box component="span" aria-hidden>
             ↓
           </Box>
