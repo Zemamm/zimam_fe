@@ -1,4 +1,4 @@
-export type OfferingKind = 'saas' | 'desktop'
+export type OfferingKind = 'saas' | 'desktop' | 'mobile' | 'website'
 
 export type Offering = {
   id: string
@@ -6,6 +6,13 @@ export type Offering = {
   title: string
   summary: string
   highlights: readonly string[]
+}
+
+export const offeringKindLabels: Record<OfferingKind, string> = {
+  saas: 'SaaS',
+  desktop: 'Desktop',
+  mobile: 'Mobile',
+  website: 'Website',
 }
 
 export const offerings: readonly Offering[] = [
@@ -31,6 +38,30 @@ export const offerings: readonly Offering[] = [
       'Native-feel experiences',
       'Offline-capable workflows',
       'Performance-focused engineering',
+    ],
+  },
+  {
+    id: 'mobile',
+    kind: 'mobile',
+    title: 'Mobile Applications',
+    summary:
+      'We build mobile apps that feel fast, clear, and ready for App Store and Google Play.',
+    highlights: [
+      'iOS and Android delivery',
+      'Smooth, intuitive interfaces',
+      'Secure APIs and push-ready foundations',
+    ],
+  },
+  {
+    id: 'website',
+    kind: 'website',
+    title: 'Website Enhancement',
+    summary:
+      'We improve existing customer websites — performance, UX, and new features that drive results.',
+    highlights: [
+      'Feature additions and redesigns',
+      'Performance and conversion upgrades',
+      'Integrations with your tools and workflows',
     ],
   },
 ]

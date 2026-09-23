@@ -1,6 +1,6 @@
 export const typography = {
   fontFamily: {
-    display: '"Syne", "Avenir Next", sans-serif',
+    display: '"Outfit", "Avenir Next", sans-serif',
     body: '"DM Sans", "Helvetica Neue", sans-serif',
     mono: '"IBM Plex Mono", "Consolas", monospace',
   },

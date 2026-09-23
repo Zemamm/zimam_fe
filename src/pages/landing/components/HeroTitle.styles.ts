@@ -1,0 +1,76 @@
+import type { SxProps, Theme } from '@mui/material/styles'
+import { colors } from '@/design-system/tokens'
+
+export const heroTitleStyles = {
+  root: {
+    position: 'relative',
+    m: 0,
+    textAlign: 'center',
+    color: colors.common.white,
+    fontFamily: '"Syne", "Avenir Next", sans-serif',
+    fontSize: { xs: '2.6rem', sm: '3.5rem', md: '4.5rem' },
+    fontWeight: 700,
+    lineHeight: 1.08,
+    letterSpacing: '-0.035em',
+    textShadow: `0 0 40px rgba(255,255,255,0.2), 0 0 80px ${colors.lime[400]}40`,
+    perspective: 900,
+  },
+  glowBloom: {
+    position: 'absolute',
+    left: '50%',
+    top: '45%',
+    width: { xs: 220, md: 420 },
+    height: { xs: 120, md: 200 },
+    transform: 'translate(-50%, -50%)',
+    borderRadius: '50%',
+    background: `radial-gradient(circle, ${colors.lime[400]}33 0%, transparent 70%)`,
+    filter: 'blur(28px)',
+    pointerEvents: 'none',
+    zIndex: 0,
+  },
+  line: {
+    position: 'relative',
+    zIndex: 1,
+    display: 'block',
+  },
+  wordMask: {
+    display: 'inline-block',
+    overflow: 'hidden',
+    verticalAlign: 'bottom',
+    perspective: 600,
+  },
+  word: {
+    display: 'inline-block',
+    transformOrigin: '50% 100%',
+    willChange: 'transform, opacity',
+  },
+  accentWord: {
+    position: 'relative',
+    backgroundImage: `linear-gradient(120deg, ${colors.common.white} 0%, ${colors.lime[300]} 45%, ${colors.lime[400]} 70%, ${colors.common.white} 100%)`,
+    backgroundSize: '200% 100%',
+    backgroundClip: 'text',
+    WebkitBackgroundClip: 'text',
+    color: 'transparent',
+    WebkitTextFillColor: 'transparent',
+    textShadow: 'none',
+    animation: 'zimamTitleShimmer 4.5s ease-in-out infinite',
+    '@keyframes zimamTitleShimmer': {
+      '0%, 100%': { backgroundPosition: '0% 50%' },
+      '50%': { backgroundPosition: '100% 50%' },
+    },
+  },
+  shimmer: {
+    display: 'none',
+  },
+  underline: {
+    display: 'block',
+    width: { xs: 72, md: 110 },
+    height: 3,
+    mx: 'auto',
+    mt: { xs: 2, md: 2.5 },
+    borderRadius: 999,
+    transformOrigin: 'center',
+    background: `linear-gradient(90deg, transparent, ${colors.lime[400]}, transparent)`,
+    boxShadow: `0 0 18px ${colors.lime[400]}88`,
+  },
+} as const satisfies Record<string, SxProps<Theme>>

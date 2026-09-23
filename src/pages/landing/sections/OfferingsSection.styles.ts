@@ -6,7 +6,6 @@ export const offeringsSectionStyles = {
     position: 'relative',
     backgroundColor: colors.surface.dark,
     color: colors.common.white,
-    scrollMarginTop: { xs: 72, md: 88 },
     pt: { xs: 2, md: 4 },
     pb: {
       xs: `${layout.sectionPaddingY.mobile}px`,
@@ -55,7 +54,11 @@ export const offeringsSectionStyles = {
     gap: 3,
     gridTemplateColumns: {
       xs: '1fr',
-      md: 'repeat(2, minmax(0, 1fr))',
+      sm: 'repeat(2, minmax(0, 1fr))',
     },
+  },
+  cardMotion: {
+    willChange: 'transform, opacity',
+    backfaceVisibility: 'hidden',
   },
 } as const satisfies Record<string, SxProps<Theme>>
