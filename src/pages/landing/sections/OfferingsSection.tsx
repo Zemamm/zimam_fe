@@ -47,8 +47,34 @@ const cardVariants: Variants = {
   },
 }
 
+const outlineTitleVariants: Variants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.045,
+      delayChildren: 0.05,
+    },
+  },
+}
+
+const outlineLetterVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 28,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.45,
+      ease: [0.16, 1, 0.3, 1],
+    },
+  },
+}
+
 export function OfferingsSection() {
   const reduceMotion = useReducedMotion()
+  const outlineLetters = Array.from(landingContent.offeringsOutlineTitle)
 
   return (
     <Box id="offerings" component="section" sx={offeringsSectionStyles.root}>
@@ -58,12 +84,34 @@ export function OfferingsSection() {
         <Box
           component={motion.p}
           sx={offeringsSectionStyles.outlineTitle}
-          initial={reduceMotion ? false : { opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          variants={reduceMotion ? undefined : outlineTitleVariants}
+          initial={reduceMotion ? false : 'hidden'}
+          whileInView={reduceMotion ? undefined : 'visible'}
           viewport={{ once: false, amount: 0.45 }}
-          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+          aria-label={landingContent.offeringsOutlineTitle}
         >
-          {landingContent.offeringsOutlineTitle}
+          {reduceMotion
+            ? landingContent.offeringsOutlineTitle
+            : outlineLetters.map((letter, index) =>
+                letter === ' ' ? (
+                  <Box
+                    key={`space-${index}`}
+                    component="span"
+                    sx={offeringsSectionStyles.outlineSpace}
+                    aria-hidden
+                  />
+                ) : (
+                  <Box
+                    key={`${letter}-${index}`}
+                    component={motion.span}
+                    variants={outlineLetterVariants}
+                    sx={offeringsSectionStyles.outlineLetter}
+                    aria-hidden
+                  >
+                    {letter}
+                  </Box>
+                ),
+              )}
         </Box>
 
         <Box

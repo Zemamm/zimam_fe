@@ -41,19 +41,6 @@ const wordVariants: Variants = {
   },
 }
 
-const underlineVariants: Variants = {
-  hidden: { scaleX: 0, opacity: 0 },
-  visible: {
-    scaleX: 1,
-    opacity: 1,
-    transition: {
-      delay: 0.75,
-      duration: 0.85,
-      ease: [0.16, 1, 0.3, 1],
-    },
-  },
-}
-
 const glowVariants: Variants = {
   hidden: { opacity: 0, scale: 0.85 },
   visible: {
@@ -138,12 +125,6 @@ export function HeroTitle() {
 
       <TitleLine text={landingContent.headlineLine1} />
       <TitleLine text={landingContent.headlineLine2} accentLastWord />
-
-      <Box
-        component={motion.span}
-        variants={underlineVariants}
-        sx={heroTitleStyles.underline}
-      />
     </Box>
   )
 }

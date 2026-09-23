@@ -21,13 +21,11 @@ export const navbarStyles = {
     px: { xs: 1.25, md: 1.5 },
     py: 1,
     borderRadius: `${layout.radius.pill}px`,
-    backgroundColor: 'rgba(10, 10, 10, 0.45)',
-    border: '1px solid rgba(255, 255, 255, 0.08)',
-    backdropFilter: 'blur(18px)',
-    WebkitBackdropFilter: 'blur(18px)',
+    backgroundColor: 'rgba(10, 10, 10, 0.55)',
+    border: '1px solid rgba(255, 255, 255, 0.1)',
+    backdropFilter: 'blur(20px) saturate(1.35)',
+    WebkitBackdropFilter: 'blur(20px) saturate(1.35)',
     boxShadow: '0 8px 32px rgba(0, 0, 0, 0.28)',
-    transform: 'translateZ(0)',
-    backfaceVisibility: 'hidden',
     willChange: 'transform',
   },
   brand: {
@@ -108,9 +106,15 @@ export const navbarStyles = {
     fontSize: '0.875rem',
     fontWeight: 500,
     whiteSpace: 'nowrap',
+    transition: 'color 160ms ease, background-color 160ms ease, border-color 160ms ease',
     '&:hover': {
       backgroundColor: 'rgba(255, 255, 255, 0.06)',
     },
+  },
+  navOutlineActive: {
+    borderColor: colors.lime[400],
+    backgroundColor: 'rgba(175, 252, 65, 0.1)',
+    color: colors.common.white,
   },
   actions: {
     display: 'flex',

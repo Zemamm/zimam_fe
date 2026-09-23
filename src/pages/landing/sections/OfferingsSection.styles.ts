@@ -26,6 +26,9 @@ export const offeringsSectionStyles = {
     pointerEvents: 'none',
   },
   outlineTitle: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
     textAlign: 'center',
     fontSize: { xs: '3rem', sm: '4.5rem', md: '6.5rem' },
     fontWeight: 800,
@@ -36,6 +39,15 @@ export const offeringsSectionStyles = {
     textShadow: `0 0 60px ${colors.lime[400]}33`,
     mb: { xs: 4, md: 8 },
     userSelect: 'none',
+  },
+  outlineLetter: {
+    display: 'inline-block',
+    color: 'transparent',
+    WebkitTextStroke: `1.5px ${colors.lime[400]}`,
+  },
+  outlineSpace: {
+    display: 'inline-block',
+    width: '0.28em',
   },
   intro: {
     maxWidth: 560,
