@@ -1,4 +1,6 @@
 import Box from '@mui/material/Box'
+import { useSnapSectionIntoView } from '@/hooks/useSnapSectionIntoView'
+import { Navbar } from './components/Navbar'
 import { ContactSection } from './sections/ContactSection'
 import { HeroSection } from './sections/HeroSection'
 import { OfferingsSection } from './sections/OfferingsSection'
@@ -6,12 +8,17 @@ import { SiteFooter } from './sections/SiteFooter'
 import { landingPageStyles } from './LandingPage.styles'
 
 export function LandingPage() {
+  useSnapSectionIntoView()
+
   return (
     <Box component="main" sx={landingPageStyles.main}>
+      <Navbar />
       <HeroSection />
       <OfferingsSection />
-      <ContactSection />
-      <SiteFooter />
+      <Box sx={landingPageStyles.tailBand}>
+        <ContactSection />
+        <SiteFooter />
+      </Box>
     </Box>
   )
 }

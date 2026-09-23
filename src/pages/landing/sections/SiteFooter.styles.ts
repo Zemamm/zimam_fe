@@ -4,8 +4,7 @@ import { colors } from '@/design-system/tokens'
 export const siteFooterStyles = {
   root: {
     py: 3,
-    borderTop: `1px solid ${colors.ink[200]}`,
-    backgroundColor: colors.ink[50],
+    backgroundColor: 'transparent',
   },
   copy: {
     color: colors.ink[400],

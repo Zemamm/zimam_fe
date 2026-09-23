@@ -13,6 +13,7 @@ This repo is the public-facing web frontend: brand presentation, offerings overv
 | UI | React 19 + TypeScript |
 | Build | Vite 8 |
 | Components / styling | MUI 9 + Emotion (`sx` only) |
+| Motion | Framer Motion |
 | Lint | Oxlint |
 | Path alias | `@/` → `src/` |
 
@@ -71,9 +72,10 @@ All UI styling goes through the design system + MUI. **No** `.css`, `.scss`, or 
 
 ### Visual direction
 
-- Cool, professional software brand (ink neutrals + teal accent)
-- Light cool backgrounds (`ink.50`), not cream / purple / terracotta looks
-- Hero uses a dark ink → teal gradient for contrast
+- Dark hero (`surface.dark` / ink) blending into a light page via a soft **lime glow** — sections read as one continuous surface (no hard dividers)
+- Brand accent: vibrant lime (`lime.400` ≈ `#AFFC41`)
+- Light body: page `#F8F9FA`, muted cards `#F3F4F6`
+- Pill-shaped buttons; large card radii
 
 ### Typography
 
@@ -89,14 +91,15 @@ Fonts are loaded in `index.html` (Google Fonts).
 
 Defined in `src/design-system/tokens/colors.ts`:
 
-| Token family | Role |
-|--------------|------|
-| `ink.*` | Neutrals / text / surfaces (`950` darkest → `50` lightest) |
-| `teal.*` | Primary brand / actions (`600` is primary main) |
-| `semantic.*` | success, warning, error, info |
-| `common.white` / `common.black` | Absolute whites/blacks |
+| Token family | Role | Key values |
+|--------------|------|------------|
+| `ink.*` | Neutrals / text (`950` darkest → `50` lightest) | `#0D0D0D`, `#666666`, `#F3F4F6` |
+| `lime.*` | Primary brand / CTAs / glow | `#AFFC41` (`400`), `#94F044` (`500`) |
+| `surface.*` | Page / card / dark hero surfaces | `page`, `card`, `muted`, `dark`, `darkElevated` |
+| `semantic.*` | success, warning, error, info | — |
+| `common.*` | Absolute white / black | — |
 
-Primary MUI mapping: `primary.main` = `teal.600`, `secondary` = ink, backgrounds = `ink.50` / white.
+Primary MUI mapping: `primary.main` = `lime.400` with dark contrast text.
 
 ### Spacing & layout
 

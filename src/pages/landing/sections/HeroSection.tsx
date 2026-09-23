@@ -1,36 +1,189 @@
+import Box from '@mui/material/Box'
 import Stack from '@mui/material/Stack'
 import {
-  UiButton,
-  UiContainer,
-  UiHeading,
-  UiSection,
-  UiText,
-} from '@/design-system'
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from 'framer-motion'
+import { useRef } from 'react'
+import { UiContainer, UiHeading, UiText } from '@/design-system'
+import { FloatingDecor } from '../components/FloatingDecor'
 import { landingContent } from '../data/content'
 import { heroSectionStyles } from './HeroSection.styles'
 
 export function HeroSection() {
+  const sectionRef = useRef<HTMLElement | null>(null)
+  const reduceMotion = useReducedMotion()
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start start', 'end start'],
+  })
+
+  const contentOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.45, 0.75],
+    reduceMotion ? [1, 1, 1] : [1, 0.55, 0],
+  )
+  const contentY = useTransform(
+    scrollYProgress,
+    [0, 0.75],
+    reduceMotion ? [0, 0] : [0, -80],
+  )
+  const contentScale = useTransform(
+    scrollYProgress,
+    [0, 0.75],
+    reduceMotion ? [1, 1] : [1, 0.94],
+  )
+  const floatingY = useTransform(
+    scrollYProgress,
+    [0, 0.75],
+    reduceMotion ? [0, 0] : [0, -110],
+  )
+  const floatingOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.45, 0.7],
+    reduceMotion ? [1, 1, 1] : [1, 0.5, 0],
+  )
+
   return (
-    <UiSection sx={heroSectionStyles.root}>
+    <Box
+      ref={sectionRef}
+      id="top"
+      component="section"
+      sx={heroSectionStyles.root}
+    >
+      <Box
+        component={motion.div}
+        style={{
+          opacity: floatingOpacity,
+          y: floatingY,
+        }}
+        sx={{
+          position: 'absolute',
+          inset: 0,
+          pointerEvents: 'none',
+          zIndex: 0,
+        }}
+      >
+        <FloatingDecor />
+      </Box>
+
       <UiContainer>
-        <Stack spacing={3} sx={heroSectionStyles.content}>
-          <UiHeading variant="h1" component="h1" sx={heroSectionStyles.brand}>
-            {landingContent.brand}
-          </UiHeading>
-          <UiHeading variant="h3" component="p" sx={heroSectionStyles.headline}>
-            {landingContent.headline}
-          </UiHeading>
-          <UiText sx={heroSectionStyles.support}>{landingContent.support}</UiText>
-          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.5}>
-            <UiButton size="large" href="#offerings">
-              Explore offerings
-            </UiButton>
-            <UiButton size="large" variant="outlined" color="secondary" href="#contact">
-              Start a project
-            </UiButton>
+        <Box
+          component={motion.div}
+          sx={heroSectionStyles.content}
+          style={{
+            opacity: contentOpacity,
+            y: contentY,
+            scale: contentScale,
+          }}
+        >
+          <Stack spacing={0} sx={{ alignItems: 'center' }}>
+            <Box
+              component={motion.div}
+              sx={heroSectionStyles.eyebrow}
+              initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <Box sx={heroSectionStyles.eyebrowDot} />
+              {landingContent.eyebrow}
+            </Box>
+
+            <Box
+              component={motion.div}
+              initial={reduceMotion ? false : { opacity: 0, y: 30, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.85, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <UiHeading
+                variant="h1"
+                component="h1"
+                sx={heroSectionStyles.brandGlow}
+              >
+                {landingContent.headlineLine1}
+                <Box component="br" />
+                {landingContent.headlineLine2}
+              </UiHeading>
+            </Box>
+
+            <Box
+              component={motion.div}
+              initial={reduceMotion ? false : { opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <UiText sx={heroSectionStyles.support}>{landingContent.support}</UiText>
+            </Box>
+
+            <Box
+              component={motion.div}
+              sx={heroSectionStyles.features}
+              initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            >
+              {landingContent.heroFeatures.map((feature) => (
+                <Box key={feature} sx={heroSectionStyles.feature}>
+                  <Box sx={heroSectionStyles.featureIcon} />
+                  {feature}
+                </Box>
+              ))}
+            </Box>
+
+            <Box
+              component={motion.div}
+              sx={heroSectionStyles.ctas}
+              initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.65, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <Box component="a" href="#contact" sx={heroSectionStyles.primaryCta}>
+                {landingContent.primaryCta}
+                <Box component="span" sx={heroSectionStyles.primaryCtaIcon} aria-hidden>
+                  →
+                </Box>
+              </Box>
+              <Box
+                component="a"
+                href="#offerings"
+                sx={heroSectionStyles.secondaryCta}
+              >
+                {landingContent.secondaryCta}
+              </Box>
+            </Box>
           </Stack>
-        </Stack>
+        </Box>
       </UiContainer>
-    </UiSection>
+
+      <Box
+        component={motion.div}
+        sx={heroSectionStyles.footerRow}
+        initial={reduceMotion ? false : { opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1, duration: 0.6 }}
+        style={{ opacity: contentOpacity }}
+      >
+        <Box
+          component={motion.a}
+          href="#offerings"
+          sx={heroSectionStyles.scrollHint}
+          animate={
+            reduceMotion
+              ? undefined
+              : {
+                  y: [0, 6, 0],
+                }
+          }
+          transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+        >
+          {landingContent.scrollHint}
+          <Box component="span" aria-hidden>
+            ↓
+          </Box>
+        </Box>
+      </Box>
+    </Box>
   )
 }

@@ -6,15 +6,15 @@ export const zimamTheme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: colors.teal[600],
-      light: colors.teal[400],
-      dark: colors.teal[800],
-      contrastText: colors.common.white,
+      main: colors.lime[400],
+      light: colors.lime[300],
+      dark: colors.lime[600],
+      contrastText: colors.ink[900],
     },
     secondary: {
-      main: colors.ink[800],
-      light: colors.ink[600],
-      dark: colors.ink[950],
+      main: colors.ink[600],
+      light: colors.ink[500],
+      dark: colors.ink[800],
       contrastText: colors.common.white,
     },
     error: {
@@ -30,15 +30,15 @@ export const zimamTheme = createTheme({
       main: colors.semantic.success,
     },
     background: {
-      default: colors.ink[50],
-      paper: colors.common.white,
+      default: colors.surface.dark,
+      paper: colors.surface.darkElevated,
     },
     text: {
-      primary: colors.ink[900],
-      secondary: colors.ink[500],
-      disabled: colors.ink[300],
+      primary: colors.common.white,
+      secondary: colors.ink[300],
+      disabled: colors.ink[500],
     },
-    divider: colors.ink[200],
+    divider: colors.ink[100],
   },
   typography: {
     fontFamily: typography.fontFamily.body,
@@ -93,7 +93,7 @@ export const zimamTheme = createTheme({
     },
   },
   shape: {
-    borderRadius: layout.radius.md,
+    borderRadius: layout.radius.lg,
   },
   components: {
     MuiCssBaseline: {
@@ -101,8 +101,8 @@ export const zimamTheme = createTheme({
         body: {
           margin: 0,
           minHeight: '100vh',
-          backgroundColor: colors.ink[50],
-          color: colors.ink[900],
+          backgroundColor: colors.surface.dark,
+          color: colors.common.white,
         },
         '#root': {
           minHeight: '100vh',
@@ -115,12 +115,36 @@ export const zimamTheme = createTheme({
       },
       styleOverrides: {
         root: {
-          borderRadius: layout.radius.md,
-          paddingInline: 20,
-          paddingBlock: 10,
+          borderRadius: layout.radius.pill,
+          paddingInline: 24,
+          paddingBlock: 12,
+          variants: [
+            {
+              props: { variant: 'contained', color: 'primary' },
+              style: {
+                backgroundColor: colors.lime[400],
+                color: colors.ink[900],
+                '&:hover': {
+                  backgroundColor: colors.lime[500],
+                },
+              },
+            },
+            {
+              props: { variant: 'outlined', color: 'secondary' },
+              style: {
+                borderColor: colors.ink[500],
+                color: colors.common.white,
+                backgroundColor: colors.surface.darkElevated,
+                '&:hover': {
+                  borderColor: colors.ink[300],
+                  backgroundColor: colors.ink[600],
+                },
+              },
+            },
+          ],
         },
         sizeLarge: {
-          paddingInline: 28,
+          paddingInline: 32,
           paddingBlock: 14,
           fontSize: typography.fontSize.md,
         },
