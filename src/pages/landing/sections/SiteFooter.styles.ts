@@ -1,12 +1,141 @@
 import type { SxProps, Theme } from '@mui/material/styles'
-import { colors } from '@/design-system/tokens'
+import { colors, layout, typography } from '@/design-system/tokens'
 
 export const siteFooterStyles = {
   root: {
-    py: 3,
+    position: 'relative',
+    mt: { xs: 2, md: 4 },
     backgroundColor: 'transparent',
+    borderTop: '1px solid rgba(255,255,255,0.08)',
+  },
+  main: {
+    position: 'relative',
+    overflow: 'hidden',
+    pt: { xs: 5, md: 7 },
+    pb: { xs: 5, md: 7 },
+  },
+  content: {
+    position: 'relative',
+    zIndex: 1,
+  },
+  layout: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: { xs: 3, md: 3.5 },
+  },
+  brandRow: {
+    display: 'flex',
+    flexDirection: { xs: 'column', sm: 'row' },
+    alignItems: { xs: 'flex-start', sm: 'center' },
+    justifyContent: 'space-between',
+    gap: 2.5,
+  },
+  brand: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: 1,
+    textDecoration: 'none',
+    color: colors.common.white,
+  },
+  brandMark: {
+    width: 36,
+    height: 36,
+    borderRadius: 9,
+    backgroundColor: colors.lime[400],
+    color: colors.ink[900],
+    display: 'grid',
+    placeItems: 'center',
+    fontSize: 13,
+    fontWeight: 800,
+    letterSpacing: '-0.04em',
+    lineHeight: 1,
+  },
+  brandName: {
+    fontWeight: 600,
+    fontSize: '1.15rem',
+    letterSpacing: '-0.02em',
+    color: colors.common.white,
+  },
+  description: {
+    color: colors.ink[300],
+    maxWidth: 520,
+  },
+  socialBlock: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    gap: 1,
+  },
+  followLabel: {
+    color: colors.ink[300],
+    fontWeight: 600,
+    fontSize: '0.875rem',
+  },
+  social: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 1,
+    flexWrap: 'wrap',
+  },
+  socialLink: {
+    width: 42,
+    height: 42,
+    borderRadius: `${layout.radius.md}px`,
+    display: 'grid',
+    placeItems: 'center',
+    color: colors.common.white,
+    backgroundColor: 'rgba(255,255,255,0.04)',
+    border: '1px solid rgba(255,255,255,0.1)',
+    textDecoration: 'none',
+    transition: 'background-color 160ms ease, border-color 160ms ease, color 160ms ease',
+    '&:hover': {
+      color: colors.ink[900],
+      backgroundColor: colors.lime[400],
+      borderColor: colors.lime[400],
+    },
+  },
+  socialIcon: {
+    fontSize: 20,
+  },
+  /** Bottom-anchored brand watermark — rises from the end of the footer main. */
+  watermark: {
+    position: 'absolute',
+    left: '50%',
+    bottom: { xs: '-0.12em', md: '-0.16em' },
+    transform: 'translateX(-50%)',
+    zIndex: 0,
+    width: '100%',
+    maxWidth: layout.maxWidth.content,
+    px: { xs: 1, md: 2 },
+    textAlign: 'center',
+    fontFamily: typography.fontFamily.display,
+    fontWeight: 700,
+    fontSize: {
+      xs: 'clamp(6.5rem, 32vw, 11rem)',
+      md: 'clamp(12rem, 22vw, 18rem)',
+    },
+    lineHeight: 0.75,
+    letterSpacing: '-0.06em',
+    textTransform: 'lowercase',
+    color: 'rgba(255,255,255,0.06)',
+    whiteSpace: 'nowrap',
+    pointerEvents: 'none',
+    userSelect: 'none',
+    WebkitMaskImage:
+      'linear-gradient(to top, transparent 0%, rgba(0,0,0,0.35) 18%, #000 42%, #000 72%, transparent 100%)',
+    maskImage:
+      'linear-gradient(to top, transparent 0%, rgba(0,0,0,0.35) 18%, #000 42%, #000 72%, transparent 100%)',
+  },
+  bottom: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    py: 2,
+    position: 'relative',
+    zIndex: 1,
   },
   copy: {
     color: colors.ink[400],
+    textAlign: 'center',
   },
 } as const satisfies Record<string, SxProps<Theme>>

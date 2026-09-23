@@ -1,6 +1,7 @@
 import Box from '@mui/material/Box'
 import { Navbar } from './components/Navbar'
 import { ContactSection } from './sections/ContactSection'
+import { FaqSection } from './sections/FaqSection'
 import { HeroSection } from './sections/HeroSection'
 import { OfferingsSection } from './sections/OfferingsSection'
 import { SiteFooter } from './sections/SiteFooter'
@@ -13,6 +14,7 @@ export function LandingPage() {
       <HeroSection />
       <OfferingsSection />
       <Box sx={landingPageStyles.tailBand}>
+        <FaqSection />
         <ContactSection />
         <SiteFooter />
       </Box>

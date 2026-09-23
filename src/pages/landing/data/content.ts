@@ -14,6 +14,7 @@ export const landingContent = {
   navLinks: [
     { label: 'Home', href: '#top' },
     { label: 'Offerings', href: '#offerings' },
+    { label: 'FAQ', href: '#faq' },
     { label: 'Contact', href: '#contact' },
   ],
   navOutlineLink: { label: 'Contact', href: '#contact' },
@@ -27,8 +28,25 @@ export const landingContent = {
   offeringsOutlineTitle: 'Built for scale',
   offeringsSupport:
     'End-to-end product delivery across SaaS, desktop, mobile, and website enhancement.',
+  faqTitle: 'Frequently asked questions',
+  faqSupport: 'Quick answers about how we build, deliver, and support your product.',
   contactTitle: 'Let’s build together',
   contactSupport:
     'Tell us about your product, app, or website — we’ll help turn it into a shipped experience.',
   contactEmail: 'mailto:hello@zimam.com',
+  contactFormTitle: 'Send a message',
+  contactFormSubmit: 'Send message',
+  contactFormSuccess: 'Thanks — your email client should open with the message ready to send.',
+  contactFormError: 'Something went wrong. Please try again or email us directly.',
+  footerDescription:
+    'Zimam builds SaaS platforms, desktop and mobile apps, and upgrades existing websites with the features your customers need.',
+  footerFollowLabel: 'Follow us',
+  footerWatermark: 'zimam',
+  footerSocial: [
+    { id: 'linkedin', label: 'LinkedIn', href: 'https://www.linkedin.com/' },
+    { id: 'instagram', label: 'Instagram', href: 'https://www.instagram.com/' },
+    { id: 'tiktok', label: 'TikTok', href: 'https://www.tiktok.com/' },
+    { id: 'facebook', label: 'Facebook', href: 'https://www.facebook.com/' },
+  ],
+  footerCopyright: 'All rights reserved.',
 } as const

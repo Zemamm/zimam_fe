@@ -1,28 +1,43 @@
 import Stack from '@mui/material/Stack'
-import {
-  UiButton,
-  UiContainer,
-  UiHeading,
-  UiSection,
-  UiText,
-} from '@/design-system'
+import { motion, useReducedMotion } from 'framer-motion'
+import { UiContainer, UiHeading, UiSection, UiText } from '@/design-system'
+import { ContactForm } from '../components/ContactForm'
 import { landingContent } from '../data/content'
 import { contactSectionStyles } from './ContactSection.styles'
 
 export function ContactSection() {
+  const reduceMotion = useReducedMotion()
+
   return (
     <UiSection id="contact" sx={contactSectionStyles.root}>
-      <UiContainer narrow>
-        <Stack spacing={2} sx={contactSectionStyles.content}>
-          <UiHeading variant="h2" component="h2" sx={contactSectionStyles.title}>
-            {landingContent.contactTitle}
-          </UiHeading>
-          <UiText sx={contactSectionStyles.support}>
-            {landingContent.contactSupport}
-          </UiText>
-          <UiButton size="large" href={landingContent.contactEmail}>
-            Contact Zimam
-          </UiButton>
+      <UiContainer>
+        <Stack sx={contactSectionStyles.layout}>
+          <Stack
+            component={motion.div}
+            spacing={2}
+            sx={contactSectionStyles.intro}
+            initial={reduceMotion ? false : { opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.4 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <UiHeading variant="h2" component="h2" sx={contactSectionStyles.title}>
+              {landingContent.contactTitle}
+            </UiHeading>
+            <UiText sx={contactSectionStyles.support}>
+              {landingContent.contactSupport}
+            </UiText>
+          </Stack>
+
+          <Stack
+            component={motion.div}
+            initial={reduceMotion ? false : { opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.25 }}
+            transition={{ duration: 0.55, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <ContactForm />
+          </Stack>
         </Stack>
       </UiContainer>
     </UiSection>
