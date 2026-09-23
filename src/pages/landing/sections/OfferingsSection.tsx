@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box'
 import Stack from '@mui/material/Stack'
-import { motion, useReducedMotion } from 'framer-motion'
+import { motion, useReducedMotion, type Variants } from 'framer-motion'
 import { UiContainer, UiHeading, UiText } from '@/design-system'
 import { OfferingCard } from '../components/OfferingCard'
 import { landingContent } from '../data/content'
@@ -8,14 +8,43 @@ import { offerings } from '../data/offerings'
 import { offeringsSectionStyles } from './OfferingsSection.styles'
 
 const CARD_CORNER_OFFSETS = [
-  { x: -96, y: -96 }, // top-left
-  { x: 96, y: -96 }, // top-right
-  { x: -96, y: 96 }, // bottom-left
-  { x: 96, y: 96 }, // bottom-right
+  { x: -96, y: -96 },
+  { x: 96, y: -96 },
+  { x: -96, y: 96 },
+  { x: 96, y: 96 },
 ] as const
 
-function getCornerOffset(index: number) {
-  return CARD_CORNER_OFFSETS[index % CARD_CORNER_OFFSETS.length]
+const gridVariants: Variants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.22,
+      delayChildren: 0.28,
+    },
+  },
+}
+
+const cardVariants: Variants = {
+  hidden: (index: number) => {
+    const corner = CARD_CORNER_OFFSETS[index % CARD_CORNER_OFFSETS.length]
+
+    return {
+      opacity: 0,
+      x: corner.x,
+      y: corner.y,
+      scale: 0.92,
+    }
+  },
+  visible: {
+    opacity: 1,
+    x: 0,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 1.35,
+      ease: [0.16, 1, 0.3, 1],
+    },
+  },
 }
 
 export function OfferingsSection() {
@@ -29,20 +58,20 @@ export function OfferingsSection() {
         <Box
           component={motion.p}
           sx={offeringsSectionStyles.outlineTitle}
-          initial={reduceMotion ? false : { opacity: 0, y: 50, scale: 0.96 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+          initial={reduceMotion ? false : { opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.45 }}
+          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
         >
           {landingContent.offeringsOutlineTitle}
         </Box>
 
         <Box
           component={motion.div}
-          initial={reduceMotion ? false : { opacity: 0, y: 28 }}
+          initial={reduceMotion ? false : { opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.65, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
+          viewport={{ once: false, amount: 0.5 }}
+          transition={{ duration: 0.75, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
         >
           <Stack spacing={1.5} sx={offeringsSectionStyles.intro}>
             <UiHeading
@@ -58,31 +87,25 @@ export function OfferingsSection() {
           </Stack>
         </Box>
 
-        <Box sx={offeringsSectionStyles.grid}>
-          {offerings.map((offering, index) => {
-            const corner = getCornerOffset(index)
-
-            return (
-              <Box
-                key={offering.id}
-                component={motion.div}
-                initial={
-                  reduceMotion
-                    ? false
-                    : { opacity: 0, x: corner.x, y: corner.y, scale: 0.92 }
-                }
-                whileInView={{ opacity: 1, x: 0, y: 0, scale: 1 }}
-                viewport={{ once: false, amount: 0.2 }}
-                transition={{
-                  duration: 1.35,
-                  delay: 0.2 + index * 0.22,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
-              >
-                <OfferingCard offering={offering} />
-              </Box>
-            )
-          })}
+        <Box
+          component={motion.div}
+          sx={offeringsSectionStyles.grid}
+          variants={reduceMotion ? undefined : gridVariants}
+          initial={reduceMotion ? false : 'hidden'}
+          whileInView={reduceMotion ? undefined : 'visible'}
+          viewport={{ once: false, amount: 0.25 }}
+        >
+          {offerings.map((offering, index) => (
+            <Box
+              key={offering.id}
+              component={motion.div}
+              custom={index}
+              variants={reduceMotion ? undefined : cardVariants}
+              sx={offeringsSectionStyles.cardMotion}
+            >
+              <OfferingCard offering={offering} />
+            </Box>
+          ))}
         </Box>
       </UiContainer>
     </Box>

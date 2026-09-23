@@ -11,7 +11,6 @@ export const heroSectionStyles = {
     overflow: 'hidden',
     backgroundColor: colors.surface.dark,
     color: colors.common.white,
-    scrollMarginTop: 0,
     pt: { xs: 12, md: 14 },
     pb: { xs: 10, md: 12 },
   },

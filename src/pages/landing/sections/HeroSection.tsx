@@ -5,12 +5,36 @@ import {
   useReducedMotion,
   useScroll,
   useTransform,
+  type Variants,
 } from "framer-motion";
 import { useRef } from "react";
 import { UiContainer, UiHeading, UiText } from "@/design-system";
 import { FloatingDecor } from "../components/FloatingDecor";
 import { landingContent } from "../data/content";
 import { heroSectionStyles } from "./HeroSection.styles";
+
+const heroViewport = { once: false, amount: 0.35 } as const;
+
+const wordParentVariants: Variants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.25,
+      delayChildren: 0.12,
+    },
+  },
+};
+
+const wordVariants: Variants = {
+  hidden: { opacity: 0, y: 30, filter: "blur(12px)", scale: 0.95 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    scale: 1,
+    transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] },
+  },
+};
 
 export function HeroSection() {
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -22,28 +46,28 @@ export function HeroSection() {
 
   const contentOpacity = useTransform(
     scrollYProgress,
-    [0, 0.45, 0.75],
-    reduceMotion ? [1, 1, 1] : [1, 0.55, 0],
+    [0, 0.5, 0.9],
+    reduceMotion ? [1, 1, 1] : [1, 0.72, 0.2],
   );
   const contentY = useTransform(
     scrollYProgress,
-    [0, 0.75],
-    reduceMotion ? [0, 0] : [0, -80],
+    [0, 0.9],
+    reduceMotion ? [0, 0] : [0, -48],
   );
   const contentScale = useTransform(
     scrollYProgress,
-    [0, 0.75],
-    reduceMotion ? [1, 1] : [1, 0.94],
+    [0, 0.9],
+    reduceMotion ? [1, 1] : [1, 0.97],
   );
   const floatingY = useTransform(
     scrollYProgress,
-    [0, 0.75],
-    reduceMotion ? [0, 0] : [0, -110],
+    [0, 0.9],
+    reduceMotion ? [0, 0] : [0, -72],
   );
   const floatingOpacity = useTransform(
     scrollYProgress,
-    [0, 0.45, 0.7],
-    reduceMotion ? [1, 1, 1] : [1, 0.5, 0],
+    [0, 0.5, 0.9],
+    reduceMotion ? [1, 1, 1] : [1, 0.65, 0.15],
   );
 
   return (
@@ -84,10 +108,11 @@ export function HeroSection() {
               component={motion.div}
               sx={heroSectionStyles.eyebrow}
               initial={reduceMotion ? false : { opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={heroViewport}
               transition={{
                 duration: 0.6,
-                delay: 0.15,
+                delay: 0.1,
                 ease: [0.16, 1, 0.3, 1],
               }}
             >
@@ -97,62 +122,47 @@ export function HeroSection() {
 
             <Box
               component={motion.div}
-              variants={{
-                hidden: {},
-                visible: {
-                  transition: {
-                    staggerChildren: 0.25,
-                    delayChildren: 0.15,
-                  },
-                },
-              }}
-              initial={reduceMotion ? "visible" : "hidden"}
-              animate="visible"
+              variants={reduceMotion ? undefined : wordParentVariants}
+              initial={reduceMotion ? false : "hidden"}
+              whileInView={reduceMotion ? undefined : "visible"}
+              viewport={heroViewport}
             >
               <UiHeading
                 variant="h1"
                 component="h1"
                 sx={heroSectionStyles.brandGlow}
               >
-                {landingContent.headlineLine1.split(' ').map((word, i, arr) => (
+                {landingContent.headlineLine1.split(" ").map((word, i, arr) => (
                   <Box
                     key={`l1-${i}`}
                     component="span"
-                    sx={{ display: 'inline-block', whiteSpace: 'pre' }}
+                    sx={{ display: "inline-block", whiteSpace: "pre" }}
                   >
                     <Box
                       component={motion.span}
-                      variants={{
-                        hidden: { opacity: 0, y: 30, filter: 'blur(12px)', scale: 0.95 },
-                        visible: { opacity: 1, y: 0, filter: 'blur(0px)', scale: 1 },
-                      }}
-                      transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-                      sx={{ display: 'inline-block' }}
+                      variants={reduceMotion ? undefined : wordVariants}
+                      sx={{ display: "inline-block" }}
                     >
                       {word}
                     </Box>
-                    {i < arr.length - 1 ? ' ' : ''}
+                    {i < arr.length - 1 ? " " : ""}
                   </Box>
                 ))}
                 <Box component="br" />
-                {landingContent.headlineLine2.split(' ').map((word, i, arr) => (
+                {landingContent.headlineLine2.split(" ").map((word, i, arr) => (
                   <Box
                     key={`l2-${i}`}
                     component="span"
-                    sx={{ display: 'inline-block', whiteSpace: 'pre' }}
+                    sx={{ display: "inline-block", whiteSpace: "pre" }}
                   >
                     <Box
                       component={motion.span}
-                      variants={{
-                        hidden: { opacity: 0, y: 30, filter: 'blur(12px)', scale: 0.95 },
-                        visible: { opacity: 1, y: 0, filter: 'blur(0px)', scale: 1 },
-                      }}
-                      transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-                      sx={{ display: 'inline-block' }}
+                      variants={reduceMotion ? undefined : wordVariants}
+                      sx={{ display: "inline-block" }}
                     >
                       {word}
                     </Box>
-                    {i < arr.length - 1 ? ' ' : ''}
+                    {i < arr.length - 1 ? " " : ""}
                   </Box>
                 ))}
               </UiHeading>
@@ -161,10 +171,11 @@ export function HeroSection() {
             <Box
               component={motion.div}
               initial={reduceMotion ? false : { opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={heroViewport}
               transition={{
                 duration: 0.7,
-                delay: 0.35,
+                delay: 0.2,
                 ease: [0.16, 1, 0.3, 1],
               }}
             >
@@ -177,10 +188,11 @@ export function HeroSection() {
               component={motion.div}
               sx={heroSectionStyles.features}
               initial={reduceMotion ? false : { opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={heroViewport}
               transition={{
                 duration: 0.7,
-                delay: 0.5,
+                delay: 0.3,
                 ease: [0.16, 1, 0.3, 1],
               }}
             >
@@ -196,10 +208,11 @@ export function HeroSection() {
               component={motion.div}
               sx={heroSectionStyles.ctas}
               initial={reduceMotion ? false : { opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={heroViewport}
               transition={{
                 duration: 0.7,
-                delay: 0.65,
+                delay: 0.4,
                 ease: [0.16, 1, 0.3, 1],
               }}
             >
@@ -233,8 +246,9 @@ export function HeroSection() {
         component={motion.div}
         sx={heroSectionStyles.footerRow}
         initial={reduceMotion ? false : { opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1, duration: 0.6 }}
+        whileInView={{ opacity: 1 }}
+        viewport={heroViewport}
+        transition={{ delay: 0.55, duration: 0.6 }}
         style={{ opacity: contentOpacity }}
       >
         <Box

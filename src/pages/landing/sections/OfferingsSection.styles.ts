@@ -57,4 +57,8 @@ export const offeringsSectionStyles = {
       sm: 'repeat(2, minmax(0, 1fr))',
     },
   },
+  cardMotion: {
+    willChange: 'transform, opacity',
+    backfaceVisibility: 'hidden',
+  },
 } as const satisfies Record<string, SxProps<Theme>>
