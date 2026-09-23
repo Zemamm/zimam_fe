@@ -2,7 +2,8 @@ import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded'
 import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded'
 import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined'
 import Box from '@mui/material/Box'
-import { motion, useReducedMotion } from 'framer-motion'
+import { useState } from 'react'
+import { motion, useReducedMotion, useScroll, useMotionValueEvent } from 'framer-motion'
 import { landingContent } from '../data/content'
 import { navbarStyles } from './Navbar.styles'
 
@@ -12,16 +13,33 @@ type NavbarProps = {
 
 export function Navbar({ activeHref = '#top' }: NavbarProps) {
   const reduceMotion = useReducedMotion()
+  const { scrollY } = useScroll()
+  const [hidden, setHidden] = useState(false)
+  
   const outlineLink = landingContent.navOutlineLink
   const textLinks = landingContent.navLinks.filter((link) => link.href !== outlineLink.href)
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const previous = scrollY.getPrevious()
+    if (previous !== undefined && latest > 100 && latest > previous) {
+      setHidden(true)
+    } else {
+      setHidden(false)
+    }
+  })
 
   return (
     <Box
       component={motion.header}
       sx={navbarStyles.root}
-      initial={reduceMotion ? false : { y: -36, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.85, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+      variants={{
+        initial: { y: -36, opacity: 0 },
+        visible: { y: 0, opacity: 1 },
+        hidden: { y: -100, opacity: 0 }
+      }}
+      initial={reduceMotion ? "visible" : "initial"}
+      animate={hidden ? "hidden" : "visible"}
+      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
     >
       <Box sx={navbarStyles.bar}>
         <Box component="a" href="#top" sx={navbarStyles.brand}>

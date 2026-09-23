@@ -43,7 +43,7 @@ export const heroSectionStyles = {
   brandGlow: {
     color: colors.common.white,
     fontSize: { xs: '2.6rem', sm: '3.5rem', md: '4.5rem' },
-    fontWeight: 800,
+    fontWeight: 600,
     lineHeight: 1.05,
     letterSpacing: '-0.03em',
     textShadow: `0 0 35px rgba(255,255,255,0.3), 0 0 70px ${colors.lime[400]}55, 0 0 110px ${colors.lime[500]}25`,

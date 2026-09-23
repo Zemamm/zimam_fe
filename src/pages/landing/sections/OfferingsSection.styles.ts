@@ -6,7 +6,6 @@ export const offeringsSectionStyles = {
     position: 'relative',
     backgroundColor: colors.surface.dark,
     color: colors.common.white,
-    scrollMarginTop: { xs: 72, md: 88 },
     pt: { xs: 2, md: 4 },
     pb: {
       xs: `${layout.sectionPaddingY.mobile}px`,

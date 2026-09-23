@@ -26,6 +26,9 @@ export const navbarStyles = {
     backdropFilter: 'blur(18px)',
     WebkitBackdropFilter: 'blur(18px)',
     boxShadow: '0 8px 32px rgba(0, 0, 0, 0.28)',
+    transform: 'translateZ(0)',
+    backfaceVisibility: 'hidden',
+    willChange: 'transform',
   },
   brand: {
     display: 'flex',
