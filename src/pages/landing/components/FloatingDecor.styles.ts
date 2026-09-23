@@ -33,6 +33,9 @@ export const floatingDecorStyles = {
   },
   item: {
     position: 'absolute',
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: 0.75,
     px: 1.3,
     py: 0.65,
     borderRadius: `${layout.radius.md}px`,
@@ -41,10 +44,17 @@ export const floatingDecorStyles = {
     fontSize: { xs: '0.75rem', md: '0.9rem' },
     fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace',
     fontWeight: 500,
-    letterSpacing: '0.06em',
+    letterSpacing: '0.04em',
     backgroundColor: 'rgba(255,255,255,0.03)',
     backdropFilter: 'blur(6px)',
     userSelect: 'none',
+  },
+  itemIcon: {
+    fontSize: { xs: 16, md: 18 },
+    opacity: 0.95,
+  },
+  itemLabel: {
+    lineHeight: 1,
   },
   cubeWrapper: {
     position: 'absolute',
@@ -55,19 +65,19 @@ export const floatingDecorStyles = {
   },
   cube: {
     position: 'relative',
-    display: 'grid',
-    placeItems: 'center',
-    width: { xs: 46, md: 62 },
-    height: { xs: 46, md: 62 },
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 0.35,
+    width: { xs: 52, md: 68 },
+    height: { xs: 52, md: 68 },
     borderRadius: '12px',
     border: `1.5px solid ${colors.lime[400]}88`,
     backgroundColor: 'rgba(8, 20, 10, 0.55)',
     backdropFilter: 'blur(8px)',
     boxShadow: `0 0 24px ${colors.lime[400]}33, inset 0 0 16px ${colors.lime[400]}22`,
     color: colors.lime[300],
-    fontSize: { xs: '1.05rem', md: '1.35rem' },
-    fontWeight: 700,
-    fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace',
     transformStyle: 'preserve-3d',
     '&::before': {
       content: '""',
@@ -77,6 +87,16 @@ export const floatingDecorStyles = {
       border: '1px dashed rgba(255,255,255,0.2)',
       pointerEvents: 'none',
     },
+  },
+  cubeIcon: {
+    fontSize: { xs: 18, md: 22 },
+  },
+  cubeLabel: {
+    fontSize: { xs: '0.55rem', md: '0.65rem' },
+    fontWeight: 700,
+    letterSpacing: '0.04em',
+    lineHeight: 1,
+    textTransform: 'uppercase',
   },
 } as const satisfies Record<string, SxProps<Theme>>
 
