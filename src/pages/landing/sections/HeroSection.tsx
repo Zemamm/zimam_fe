@@ -1,50 +1,50 @@
-import Box from '@mui/material/Box'
-import Stack from '@mui/material/Stack'
+import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
 import {
   motion,
   useReducedMotion,
   useScroll,
   useTransform,
-} from 'framer-motion'
-import { useRef } from 'react'
-import { UiContainer, UiHeading, UiText } from '@/design-system'
-import { FloatingDecor } from '../components/FloatingDecor'
-import { landingContent } from '../data/content'
-import { heroSectionStyles } from './HeroSection.styles'
+} from "framer-motion";
+import { useRef } from "react";
+import { UiContainer, UiHeading, UiText } from "@/design-system";
+import { FloatingDecor } from "../components/FloatingDecor";
+import { landingContent } from "../data/content";
+import { heroSectionStyles } from "./HeroSection.styles";
 
 export function HeroSection() {
-  const sectionRef = useRef<HTMLElement | null>(null)
-  const reduceMotion = useReducedMotion()
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ['start start', 'end start'],
-  })
+    offset: ["start start", "end start"],
+  });
 
   const contentOpacity = useTransform(
     scrollYProgress,
     [0, 0.45, 0.75],
     reduceMotion ? [1, 1, 1] : [1, 0.55, 0],
-  )
+  );
   const contentY = useTransform(
     scrollYProgress,
     [0, 0.75],
     reduceMotion ? [0, 0] : [0, -80],
-  )
+  );
   const contentScale = useTransform(
     scrollYProgress,
     [0, 0.75],
     reduceMotion ? [1, 1] : [1, 0.94],
-  )
+  );
   const floatingY = useTransform(
     scrollYProgress,
     [0, 0.75],
     reduceMotion ? [0, 0] : [0, -110],
-  )
+  );
   const floatingOpacity = useTransform(
     scrollYProgress,
     [0, 0.45, 0.7],
     reduceMotion ? [1, 1, 1] : [1, 0.5, 0],
-  )
+  );
 
   return (
     <Box
@@ -60,9 +60,9 @@ export function HeroSection() {
           y: floatingY,
         }}
         sx={{
-          position: 'absolute',
+          position: "absolute",
           inset: 0,
-          pointerEvents: 'none',
+          pointerEvents: "none",
           zIndex: 0,
         }}
       >
@@ -79,13 +79,17 @@ export function HeroSection() {
             scale: contentScale,
           }}
         >
-          <Stack spacing={0} sx={{ alignItems: 'center' }}>
+          <Stack spacing={0} sx={{ alignItems: "center" }}>
             <Box
               component={motion.div}
               sx={heroSectionStyles.eyebrow}
               initial={reduceMotion ? false : { opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+              transition={{
+                duration: 0.6,
+                delay: 0.15,
+                ease: [0.16, 1, 0.3, 1],
+              }}
             >
               <Box sx={heroSectionStyles.eyebrowDot} />
               {landingContent.eyebrow}
@@ -93,18 +97,64 @@ export function HeroSection() {
 
             <Box
               component={motion.div}
-              initial={reduceMotion ? false : { opacity: 0, y: 30, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ duration: 0.85, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              variants={{
+                hidden: {},
+                visible: {
+                  transition: {
+                    staggerChildren: 0.25,
+                    delayChildren: 0.15,
+                  },
+                },
+              }}
+              initial={reduceMotion ? "visible" : "hidden"}
+              animate="visible"
             >
               <UiHeading
                 variant="h1"
                 component="h1"
                 sx={heroSectionStyles.brandGlow}
               >
-                {landingContent.headlineLine1}
+                {landingContent.headlineLine1.split(' ').map((word, i, arr) => (
+                  <Box
+                    key={`l1-${i}`}
+                    component="span"
+                    sx={{ display: 'inline-block', whiteSpace: 'pre' }}
+                  >
+                    <Box
+                      component={motion.span}
+                      variants={{
+                        hidden: { opacity: 0, y: 30, filter: 'blur(12px)', scale: 0.95 },
+                        visible: { opacity: 1, y: 0, filter: 'blur(0px)', scale: 1 },
+                      }}
+                      transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                      sx={{ display: 'inline-block' }}
+                    >
+                      {word}
+                    </Box>
+                    {i < arr.length - 1 ? ' ' : ''}
+                  </Box>
+                ))}
                 <Box component="br" />
-                {landingContent.headlineLine2}
+                {landingContent.headlineLine2.split(' ').map((word, i, arr) => (
+                  <Box
+                    key={`l2-${i}`}
+                    component="span"
+                    sx={{ display: 'inline-block', whiteSpace: 'pre' }}
+                  >
+                    <Box
+                      component={motion.span}
+                      variants={{
+                        hidden: { opacity: 0, y: 30, filter: 'blur(12px)', scale: 0.95 },
+                        visible: { opacity: 1, y: 0, filter: 'blur(0px)', scale: 1 },
+                      }}
+                      transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                      sx={{ display: 'inline-block' }}
+                    >
+                      {word}
+                    </Box>
+                    {i < arr.length - 1 ? ' ' : ''}
+                  </Box>
+                ))}
               </UiHeading>
             </Box>
 
@@ -112,9 +162,15 @@ export function HeroSection() {
               component={motion.div}
               initial={reduceMotion ? false : { opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              transition={{
+                duration: 0.7,
+                delay: 0.35,
+                ease: [0.16, 1, 0.3, 1],
+              }}
             >
-              <UiText sx={heroSectionStyles.support}>{landingContent.support}</UiText>
+              <UiText sx={heroSectionStyles.support}>
+                {landingContent.support}
+              </UiText>
             </Box>
 
             <Box
@@ -122,7 +178,11 @@ export function HeroSection() {
               sx={heroSectionStyles.features}
               initial={reduceMotion ? false : { opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              transition={{
+                duration: 0.7,
+                delay: 0.5,
+                ease: [0.16, 1, 0.3, 1],
+              }}
             >
               {landingContent.heroFeatures.map((feature) => (
                 <Box key={feature} sx={heroSectionStyles.feature}>
@@ -137,11 +197,23 @@ export function HeroSection() {
               sx={heroSectionStyles.ctas}
               initial={reduceMotion ? false : { opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.65, ease: [0.16, 1, 0.3, 1] }}
+              transition={{
+                duration: 0.7,
+                delay: 0.65,
+                ease: [0.16, 1, 0.3, 1],
+              }}
             >
-              <Box component="a" href="#contact" sx={heroSectionStyles.primaryCta}>
+              <Box
+                component="a"
+                href="#contact"
+                sx={heroSectionStyles.primaryCta}
+              >
                 {landingContent.primaryCta}
-                <Box component="span" sx={heroSectionStyles.primaryCtaIcon} aria-hidden>
+                <Box
+                  component="span"
+                  sx={heroSectionStyles.primaryCtaIcon}
+                  aria-hidden
+                >
                   →
                 </Box>
               </Box>
@@ -176,7 +248,7 @@ export function HeroSection() {
                   y: [0, 6, 0],
                 }
           }
-          transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+          transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
         >
           {landingContent.scrollHint}
           <Box component="span" aria-hidden>
@@ -185,5 +257,5 @@ export function HeroSection() {
         </Box>
       </Box>
     </Box>
-  )
+  );
 }
