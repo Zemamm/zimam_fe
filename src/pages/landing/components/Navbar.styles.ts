@@ -123,7 +123,7 @@ export const navbarStyles = {
     flexShrink: 0,
   },
   language: {
-    display: { xs: 'none', lg: 'inline-flex' },
+    display: { xs: 'inline-flex', lg: 'inline-flex' },
     alignItems: 'center',
     gap: 0.75,
     px: 1.5,
@@ -134,7 +134,12 @@ export const navbarStyles = {
     fontSize: '0.875rem',
     fontWeight: 500,
     border: 'none',
-    cursor: 'default',
+    cursor: 'pointer',
+    fontFamily: 'inherit',
+    transition: 'background-color 160ms ease',
+    '&:hover': {
+      backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    },
   },
   languageIcon: {
     fontSize: 16,

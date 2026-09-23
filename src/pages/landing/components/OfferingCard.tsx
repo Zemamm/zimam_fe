@@ -1,6 +1,7 @@
 import Stack from '@mui/material/Stack'
 import { UiHeading, UiText } from '@/design-system'
-import { offeringKindLabels, type Offering } from '../data/offerings'
+import type { Offering } from '../data/offerings'
+import { useLandingCopy } from '../i18n/LocaleProvider'
 import { offeringCardStyles } from './OfferingCard.styles'
 
 type OfferingCardProps = {
@@ -8,6 +9,8 @@ type OfferingCardProps = {
 }
 
 export function OfferingCard({ offering }: OfferingCardProps) {
+  const { offeringKindLabels } = useLandingCopy()
+
   return (
     <Stack component="article" spacing={1.5} sx={offeringCardStyles.root}>
       <UiText variant="overline" sx={offeringCardStyles.kind}>

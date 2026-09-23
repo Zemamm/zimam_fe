@@ -2,13 +2,12 @@ import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded'
 import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded'
 import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined'
 import Box from '@mui/material/Box'
-import { useRef, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import { motion, useReducedMotion, useScroll, useMotionValueEvent } from 'framer-motion'
-import { landingContent } from '../data/content'
 import { useActiveSection } from '../hooks/useActiveSection'
+import { useLandingCopy, useLocale } from '../i18n/LocaleProvider'
+import { localeMeta } from '../i18n/types'
 import { navbarStyles } from './Navbar.styles'
-
-const sectionHrefs = landingContent.navLinks.map((link) => link.href)
 
 const HIDE_AFTER_PX = 64
 const SCROLL_DELTA_PX = 10
@@ -25,11 +24,18 @@ export function Navbar() {
   const { scrollY } = useScroll()
   const [hidden, setHidden] = useState(false)
   const lastScrollY = useRef(0)
+  const { content } = useLandingCopy()
+  const { locale, toggleLocale } = useLocale()
+  const sectionHrefs = useMemo(
+    () => content.navLinks.map((link) => link.href),
+    [content.navLinks],
+  )
   const activeHref = useActiveSection(sectionHrefs)
 
-  const outlineLink = landingContent.navOutlineLink
-  const textLinks = landingContent.navLinks.filter((link) => link.href !== outlineLink.href)
+  const outlineLink = content.navOutlineLink
+  const textLinks = content.navLinks.filter((link) => link.href !== outlineLink.href)
   const isOutlineActive = activeHref === outlineLink.href
+  const otherLocale = locale === 'en' ? 'ar' : 'en'
 
   useMotionValueEvent(scrollY, 'change', (latest) => {
     if (reduceMotion) {
@@ -64,9 +70,9 @@ export function Navbar() {
         transition={reduceMotion ? { duration: 0 } : barTransition}
       >
         <Box component="a" href="#top" sx={navbarStyles.brand}>
-          <Box sx={navbarStyles.brandMark}>{landingContent.brandMark}</Box>
+          <Box sx={navbarStyles.brandMark}>{content.brandMark}</Box>
           <Box component="span" sx={navbarStyles.brandName}>
-            {landingContent.brandSuffix}
+            {content.brandSuffix}
           </Box>
         </Box>
 
@@ -99,21 +105,27 @@ export function Navbar() {
         </Box>
 
         <Box sx={navbarStyles.actions}>
-          <Box sx={navbarStyles.language} aria-label="Language">
+          <Box
+            component="button"
+            type="button"
+            sx={navbarStyles.language}
+            aria-label={`Switch to ${localeMeta[otherLocale].label}`}
+            onClick={toggleLocale}
+          >
             <PublicOutlinedIcon sx={navbarStyles.languageIcon} />
-            {landingContent.languageLabel}
+            {localeMeta[otherLocale].label}
             <ExpandMoreRoundedIcon sx={navbarStyles.languageChevron} />
           </Box>
 
           <Box component="a" href="#contact" sx={navbarStyles.primaryCta}>
-            {landingContent.primaryCta}
+            {content.primaryCta}
             <Box component="span" sx={navbarStyles.primaryCtaIcon} aria-hidden>
               <ArrowForwardRoundedIcon sx={{ fontSize: 16 }} />
             </Box>
           </Box>
 
           <Box component="a" href="#offerings" sx={navbarStyles.secondaryCta}>
-            {landingContent.secondaryCta}
+            {content.secondaryCta}
           </Box>
         </Box>
       </Box>

@@ -2,12 +2,12 @@ import Box from '@mui/material/Box'
 import Stack from '@mui/material/Stack'
 import { motion, useReducedMotion } from 'framer-motion'
 import { UiContainer, UiHeading, UiSection, UiText } from '@/design-system'
-import { landingContent } from '../data/content'
-import { whyZimamReasons } from '../data/whyZimam'
+import { useLandingCopy } from '../i18n/LocaleProvider'
 import { whyZimamSectionStyles } from './WhyZimamSection.styles'
 
 export function WhyZimamSection() {
   const reduceMotion = useReducedMotion()
+  const { content, whyZimamReasons } = useLandingCopy()
 
   return (
     <UiSection id="why-zimam" sx={whyZimamSectionStyles.root}>
@@ -22,9 +22,9 @@ export function WhyZimamSection() {
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
           <UiHeading variant="h2" component="h2" sx={whyZimamSectionStyles.title}>
-            {landingContent.whyZimamTitle}
+            {content.whyZimamTitle}
           </UiHeading>
-          <UiText sx={whyZimamSectionStyles.support}>{landingContent.whyZimamSupport}</UiText>
+          <UiText sx={whyZimamSectionStyles.support}>{content.whyZimamSupport}</UiText>
         </Stack>
 
         <Box sx={whyZimamSectionStyles.grid}>

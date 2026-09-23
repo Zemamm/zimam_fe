@@ -5,15 +5,19 @@ import AccordionSummary from '@mui/material/AccordionSummary'
 import Box from '@mui/material/Box'
 import Stack from '@mui/material/Stack'
 import { motion, useReducedMotion } from 'framer-motion'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { UiContainer, UiHeading, UiSection, UiText } from '@/design-system'
-import { landingContent } from '../data/content'
-import { faqItems } from '../data/faq'
+import { useLandingCopy } from '../i18n/LocaleProvider'
 import { faqSectionStyles } from './FaqSection.styles'
 
 export function FaqSection() {
   const reduceMotion = useReducedMotion()
+  const { content, faqItems } = useLandingCopy()
   const [expandedId, setExpandedId] = useState<string | false>(faqItems[0]?.id ?? false)
+
+  useEffect(() => {
+    setExpandedId(faqItems[0]?.id ?? false)
+  }, [faqItems])
 
   return (
     <UiSection id="faq" sx={faqSectionStyles.root}>
@@ -28,9 +32,9 @@ export function FaqSection() {
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
           <UiHeading variant="h2" component="h2" sx={faqSectionStyles.title}>
-            {landingContent.faqTitle}
+            {content.faqTitle}
           </UiHeading>
-          <UiText sx={faqSectionStyles.support}>{landingContent.faqSupport}</UiText>
+          <UiText sx={faqSectionStyles.support}>{content.faqSupport}</UiText>
         </Stack>
 
         <Box sx={faqSectionStyles.list}>

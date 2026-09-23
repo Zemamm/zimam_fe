@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box'
 import { motion, useReducedMotion, type Variants } from 'framer-motion'
-import { landingContent } from '../data/content'
+import { useLandingCopy } from '../i18n/LocaleProvider'
 import { heroTitleStyles } from './HeroTitle.styles'
 
 const titleViewport = { once: false, amount: 0.55 } as const
@@ -63,27 +63,16 @@ function TitleLine({ text, accentLastWord = false }: TitleLineProps) {
   const words = text.split(' ')
 
   return (
-    <Box
-      component={motion.span}
-      variants={wordMaskVariants}
-      sx={heroTitleStyles.line}
-    >
+    <Box component={motion.span} variants={wordMaskVariants} sx={heroTitleStyles.line}>
       {words.map((word, index) => {
         const isAccent = accentLastWord && index === words.length - 1
 
         return (
-          <Box
-            key={`${word}-${index}`}
-            component="span"
-            sx={heroTitleStyles.wordMask}
-          >
+          <Box key={`${word}-${index}`} component="span" sx={heroTitleStyles.wordMask}>
             <Box
               component={motion.span}
               variants={wordVariants}
-              sx={[
-                heroTitleStyles.word,
-                isAccent ? heroTitleStyles.accentWord : null,
-              ]}
+              sx={[heroTitleStyles.word, isAccent ? heroTitleStyles.accentWord : null]}
             >
               {word}
               {isAccent ? <Box component="span" sx={heroTitleStyles.shimmer} /> : null}
@@ -98,15 +87,16 @@ function TitleLine({ text, accentLastWord = false }: TitleLineProps) {
 
 export function HeroTitle() {
   const reduceMotion = useReducedMotion()
+  const { content } = useLandingCopy()
 
   if (reduceMotion) {
     return (
       <Box component="h1" sx={heroTitleStyles.root}>
         <Box component="span" sx={heroTitleStyles.line}>
-          {landingContent.headlineLine1}
+          {content.headlineLine1}
         </Box>
         <Box component="span" sx={heroTitleStyles.line}>
-          {landingContent.headlineLine2}
+          {content.headlineLine2}
         </Box>
       </Box>
     )
@@ -123,8 +113,8 @@ export function HeroTitle() {
     >
       <Box component={motion.span} variants={glowVariants} sx={heroTitleStyles.glowBloom} />
 
-      <TitleLine text={landingContent.headlineLine1} />
-      <TitleLine text={landingContent.headlineLine2} accentLastWord />
+      <TitleLine text={content.headlineLine1} />
+      <TitleLine text={content.headlineLine2} accentLastWord />
     </Box>
   )
 }
