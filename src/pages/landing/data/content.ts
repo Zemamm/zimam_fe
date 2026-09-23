@@ -3,10 +3,10 @@ export const landingContent = {
   brandMark: 'Zi',
   brandSuffix: 'mam',
   eyebrow: 'Build. Ship. Scale.',
-  headlineLine1: 'SaaS & desktop apps',
-  headlineLine2: 'engineered to last.',
+  headlineLine1: 'Software that grows',
+  headlineLine2: 'with your business.',
   support:
-    'From product strategy to polished delivery, Zimam helps teams ship reliable software people trust.',
+    'Zimam builds SaaS platforms, desktop and mobile apps, and upgrades existing websites with the features your customers need.',
   primaryCta: 'Start a project',
   secondaryCta: 'Explore offerings',
   languageLabel: 'English',
@@ -18,16 +18,17 @@ export const landingContent = {
   ],
   navOutlineLink: { label: 'Contact', href: '#contact' },
   heroFeatures: [
-    'Product strategy',
     'SaaS platforms',
-    'Desktop applications',
-    'Polished delivery',
+    'Desktop apps',
+    'Mobile apps',
+    'Website upgrades',
   ],
   offeringsTitle: 'What we build',
   offeringsOutlineTitle: 'Built for scale',
-  offeringsSupport: 'Focused delivery for SaaS products and desktop applications.',
+  offeringsSupport:
+    'End-to-end product delivery across SaaS, desktop, mobile, and website enhancement.',
   contactTitle: 'Let’s build together',
   contactSupport:
-    'Tell us about your SaaS or desktop product idea — we’ll help turn it into a shipped experience.',
+    'Tell us about your product, app, or website — we’ll help turn it into a shipped experience.',
   contactEmail: 'mailto:hello@zimam.com',
 } as const

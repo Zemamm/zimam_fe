@@ -54,7 +54,7 @@ export const offeringsSectionStyles = {
     gap: 3,
     gridTemplateColumns: {
       xs: '1fr',
-      md: 'repeat(2, minmax(0, 1fr))',
+      sm: 'repeat(2, minmax(0, 1fr))',
     },
   },
 } as const satisfies Record<string, SxProps<Theme>>

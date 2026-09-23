@@ -7,6 +7,17 @@ import { landingContent } from '../data/content'
 import { offerings } from '../data/offerings'
 import { offeringsSectionStyles } from './OfferingsSection.styles'
 
+const CARD_CORNER_OFFSETS = [
+  { x: -96, y: -96 }, // top-left
+  { x: 96, y: -96 }, // top-right
+  { x: -96, y: 96 }, // bottom-left
+  { x: 96, y: 96 }, // bottom-right
+] as const
+
+function getCornerOffset(index: number) {
+  return CARD_CORNER_OFFSETS[index % CARD_CORNER_OFFSETS.length]
+}
+
 export function OfferingsSection() {
   const reduceMotion = useReducedMotion()
 
@@ -28,10 +39,10 @@ export function OfferingsSection() {
 
         <Box
           component={motion.div}
-          initial={reduceMotion ? false : { opacity: 0, y: 36 }}
+          initial={reduceMotion ? false : { opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.75, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.65, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
         >
           <Stack spacing={1.5} sx={offeringsSectionStyles.intro}>
             <UiHeading
@@ -45,25 +56,33 @@ export function OfferingsSection() {
               {landingContent.offeringsSupport}
             </UiText>
           </Stack>
+        </Box>
 
-          <Box sx={offeringsSectionStyles.grid}>
-            {offerings.map((offering, index) => (
+        <Box sx={offeringsSectionStyles.grid}>
+          {offerings.map((offering, index) => {
+            const corner = getCornerOffset(index)
+
+            return (
               <Box
                 key={offering.id}
                 component={motion.div}
-                initial={reduceMotion ? false : { opacity: 0, y: 36, scale: 0.98 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                viewport={{ once: true, amount: 0.15 }}
+                initial={
+                  reduceMotion
+                    ? false
+                    : { opacity: 0, x: corner.x, y: corner.y, scale: 0.92 }
+                }
+                whileInView={{ opacity: 1, x: 0, y: 0, scale: 1 }}
+                viewport={{ once: false, amount: 0.2 }}
                 transition={{
-                  duration: 0.65,
-                  delay: 0.15 + index * 0.12,
+                  duration: 1.35,
+                  delay: 0.2 + index * 0.22,
                   ease: [0.16, 1, 0.3, 1],
                 }}
               >
                 <OfferingCard offering={offering} />
               </Box>
-            ))}
-          </Box>
+            )
+          })}
         </Box>
       </UiContainer>
     </Box>
