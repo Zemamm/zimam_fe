@@ -9,17 +9,10 @@ export const heroSectionStyles = {
     flexDirection: 'column',
     justifyContent: 'center',
     overflow: 'hidden',
+    backgroundColor: colors.surface.dark,
     color: colors.common.white,
     pt: { xs: 12, md: 14 },
     pb: { xs: 10, md: 12 },
-    backgroundColor: colors.surface.dark,
-    backgroundImage: `
-      radial-gradient(ellipse 70% 55% at 12% 8%, ${colors.lime[400]}2e 0%, transparent 58%),
-      radial-gradient(ellipse 55% 45% at 88% 12%, ${colors.lime[500]}1f 0%, transparent 52%),
-      radial-gradient(ellipse 95% 75% at 50% 48%, ${colors.lime[400]}33 0%, ${colors.lime[500]}14 32%, transparent 68%),
-      radial-gradient(ellipse 60% 40% at 18% 70%, ${colors.lime[400]}18 0%, transparent 55%),
-      linear-gradient(180deg, ${colors.ink[900]} 0%, ${colors.surface.dark} 45%, ${colors.ink[950]} 100%)
-    `,
   },
   content: {
     position: 'relative',

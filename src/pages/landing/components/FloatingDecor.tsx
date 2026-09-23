@@ -233,24 +233,10 @@ export function FloatingDecor() {
       />
       <Box
         component={motion.div}
-        sx={floatingDecorStyles.cornerGlow}
-        initial={reduceMotion ? false : { opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1.3, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
-      />
-      <Box
-        component={motion.div}
         sx={floatingDecorStyles.secondaryGlow}
         initial={reduceMotion ? false : { opacity: 0, scale: 0.85 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1.4, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-      />
-      <Box
-        component={motion.div}
-        sx={floatingDecorStyles.rightGlow}
-        initial={reduceMotion ? false : { opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1.35, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
       />
 
       {CUBES.map((cube) => (
