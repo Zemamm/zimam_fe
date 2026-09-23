@@ -3,10 +3,15 @@ import { colors } from '@/design-system/tokens'
 
 export const contactSectionStyles = {
   root: {
-    backgroundColor: colors.common.white,
-    borderTop: `1px solid ${colors.ink[200]}`,
+    backgroundColor: 'transparent',
   },
   content: {
     alignItems: 'flex-start',
+  },
+  title: {
+    color: colors.common.white,
+  },
+  support: {
+    color: colors.ink[300],
   },
 } as const satisfies Record<string, SxProps<Theme>>

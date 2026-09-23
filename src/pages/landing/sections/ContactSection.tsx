@@ -14,10 +14,12 @@ export function ContactSection() {
     <UiSection id="contact" sx={contactSectionStyles.root}>
       <UiContainer narrow>
         <Stack spacing={2} sx={contactSectionStyles.content}>
-          <UiHeading variant="h2" component="h2">
+          <UiHeading variant="h2" component="h2" sx={contactSectionStyles.title}>
             {landingContent.contactTitle}
           </UiHeading>
-          <UiText>{landingContent.contactSupport}</UiText>
+          <UiText sx={contactSectionStyles.support}>
+            {landingContent.contactSupport}
+          </UiText>
           <UiButton size="large" href={landingContent.contactEmail}>
             Contact Zimam
           </UiButton>

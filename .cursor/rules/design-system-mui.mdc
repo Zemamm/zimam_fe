@@ -37,4 +37,4 @@ import Button from '@mui/material/Button'
 
 ## Visual direction
 
-Ink + teal palette, Syne (display) + DM Sans (body). Cool light backgrounds — avoid purple themes and cream/terracotta serif looks.
+Dark hero + light body joined by a soft lime glow (no hard section borders). Ink neutrals, lime accent (`#AFFC41`), Syne + DM Sans. Avoid purple themes and cream/terracotta looks.
